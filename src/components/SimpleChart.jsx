@@ -122,7 +122,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
         style={{
           position: "fixed",
           bottom: 0,
-          backgroundColor: "#d7d7d7",
+          backgroundColor: "#e8e8e8",
           padding: "10px 0",
           color: "#1a1a1a",
           width: "100%",

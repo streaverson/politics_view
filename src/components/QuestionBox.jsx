@@ -63,10 +63,10 @@ export default function QuestionBox({ updatePosition, onFinish }) {
 
           <div id="question">{questions[currentQuestionIndex]?.question}</div>
           <div id="optionsSection">
-            <div onClick={() => handleClick(1)}>خیلی موافق</div>
-            <div onClick={() => handleClick(0.5)}>موافق</div>
-            <div onClick={() => handleClick(-0.5)}>مخالف</div>
-            <div onClick={() => handleClick(-1)}>خیلی مخالف</div>
+            <button onClick={() => handleClick(1)}>خیلی موافق</button>
+            <button onClick={() => handleClick(0.5)}>موافق</button>
+            <button onClick={() => handleClick(-0.5)}>مخالف</button>
+            <button onClick={() => handleClick(-1)}>خیلی مخالف</button>
           </div>
         </div>
       )}
