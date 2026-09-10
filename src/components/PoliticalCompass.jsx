@@ -1,5 +1,6 @@
 import React from "react";
 
+// TEST GIT TEST TEST
 const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
   const VIEWBOX_SIZE = 500;
   const center = VIEWBOX_SIZE / 2;
