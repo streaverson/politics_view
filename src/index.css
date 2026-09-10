@@ -78,12 +78,12 @@ body {
   width: 100%;
   max-width: 100%;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
+
+  /* border-inline: 1px solid var(--border); */
   min-height: 110svh;
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
+  /* box-sizing: border-box;   */
 }
 
 h1,
@@ -116,24 +116,35 @@ p {
 }
 
 .title {
+  text-align: center;
+  padding: 10px 0;
+  margin-bottom: 30px;
   padding-bottom: 1rem !important;
   font-size: 2rem;
 }
 .political-compass-wrapper {
   width: min(100%, 300px);
-  aspect-ratio: 1 /1;
-
+  aspect-ratio: 1 / 1;
   margin: auto;
+  direction: ltr;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .political-compass {
   border: 1px solid #333;
-
+  z-index: 999;
   display: block;
   width: 100%;
-
   height: 100%;
   font-family: "vazir", sans-serif;
+  text-align: left;
+
+  /* اینو بعد از کلی داستان اضافه کردم ، امیر یادت نره که این برای این هستش که دایره از مرکز نمودار شروع شه 
+   */
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
 .axis-label {

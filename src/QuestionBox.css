@@ -8,6 +8,7 @@
 }
 #title {
   margin: 0 1rem 1rem;
+
   padding: 0 0 10px 0;
   color: var(--main);
   /* border-bottom: 1px solid #212529; */
@@ -31,6 +32,7 @@
 }
 #progress #questionCount {
   color: #666 !important;
+  text-align: center;
 }
 #question {
   font-weight: 700;

@@ -8,14 +8,46 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
   const getX = (value) => center + value * scale;
   const getY = (value) => center - value * scale;
 
-  const gridValues = Array.from({ length: 20 }, (_, index) => index - 20);
+  const maxGridValue = 10;
+  const gridValues = Array.from(
+    { length: maxGridValue * 2 + 1 },
+    (_, index) => index - maxGridValue,
+  );
 
+  const getValidCx = (x) => {
+    const calculatedX = getX(x);
+    if (calculatedX < 0) return 0;
+    if (calculatedX > VIEWBOX_SIZE) return VIEWBOX_SIZE;
+    return calculatedX;
+  };
+
+  const getValidCy = (y) => {
+    const calculatedY = getY(y);
+    if (calculatedY < 0) return 0;
+    if (calculatedY > VIEWBOX_SIZE) return VIEWBOX_SIZE;
+    return calculatedY;
+  };
+
+  const safeNumber = (n, fallback = 0) =>
+    typeof n === "number" && Number.isFinite(n) ? n : fallback;
+
+  const safeUserPosition = {
+    x: safeNumber(userPosition?.x),
+    y: safeNumber(userPosition?.y),
+  };
+
+  console.log("=== PoliticalCompass ===");
+  console.log("userPosition:", JSON.stringify(userPosition));
+  console.log("safeUserPosition:", JSON.stringify(safeUserPosition));
+  console.log("cx:", getValidCx(safeUserPosition.x));
+  console.log("cy:", getValidCy(safeUserPosition.y));
   return (
     <>
       <div className="political-compass-wrapper">
         <svg
           className="political-compass"
           viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
+          preserveAspectRatio="xMidYMid meet" // ← اضافه کن
           role="img"
           aria-label="نمودار سیاسی"
           style={{ overflow: "visible" }}
@@ -25,19 +57,18 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
             <React.Fragment key={value}>
               <line
                 x1="0"
-                y1={getY(value) - 275}
+                y1={getY(value)}
                 x2={VIEWBOX_SIZE}
-                y2={getY(value) - 275}
-                stroke="#ff3232"
+                y2={getY(value)}
+                stroke="#ff8080"
                 strokeWidth="1"
               />
-
               <line
-                x1={getX(value) + 275}
+                x1={getX(value)}
                 y1="0"
-                x2={getX(value) + 275}
+                x2={getX(value)}
                 y2={VIEWBOX_SIZE}
-                stroke="#ff3232"
+                stroke="#ff8080"
                 strokeWidth="1"
               />
             </React.Fragment>
@@ -63,7 +94,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
             strokeWidth="2"
           />
 
-          {/* برچسب انتهای بالای محور عمودی */}
+          {/* برچسب بالا */}
           <text
             x={center}
             y="-16"
@@ -74,7 +105,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
             اقتدارگرا
           </text>
 
-          {/* برچسب انتهای پایین محور عمودی */}
+          {/* برچسب پایین */}
           <text
             x={center}
             y={VIEWBOX_SIZE + 16}
@@ -85,7 +116,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
             آزادی‌خواه
           </text>
 
-          {/* برچسب انتهای چپ محور افقی */}
+          {/* برچسب چپ */}
           <text
             x="-25"
             y={center}
@@ -96,7 +127,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
             چپ
           </text>
 
-          {/* برچسب انتهای راست محور افقی */}
+          {/* برچسب راست */}
           <text
             x={VIEWBOX_SIZE + 32}
             y={center}
@@ -107,10 +138,10 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
             راست
           </text>
 
-          {/* نقطه کاربر */}
+          {/* نقطه کاربر — ✅ بدون + 250 */}
           <circle
-            cx={getX(userPosition.x)}
-            cy={getY(userPosition.y)}
+            cx={getValidCx(safeUserPosition.x)}
+            cy={getValidCy(safeUserPosition.y)}
             r="7"
             fill="#2e7d32"
             stroke="#1b5e20"
@@ -118,6 +149,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
           />
         </svg>
       </div>
+
       <footer
         style={{
           position: "fixed",
@@ -129,7 +161,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
           textAlign: "center",
         }}
       >
-        توسعه و طراحی شده توسط
+        توسعه و طراحی شده توسط{" "}
         <a href="https://github.com/streaverson" style={{ color: "#000" }}>
           streaverson
         </a>
