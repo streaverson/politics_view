@@ -125,6 +125,7 @@ p {
 .political-compass-wrapper {
   width: min(100%, 300px);
   aspect-ratio: 1 / 1;
+  background-color: #fff;
   margin: auto;
   direction: ltr;
   display: flex;
