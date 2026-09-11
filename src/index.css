@@ -124,7 +124,7 @@ p {
   text-align: center;
   padding: 10px 0;
   margin-bottom: 30px;
-  color: #000;
+  color: #000 !important;
   padding-bottom: 1rem !important;
   font-size: 2rem;
 }
