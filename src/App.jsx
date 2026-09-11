@@ -10,16 +10,12 @@ function App() {
     setPosition(newPosition);
   }, []);
 
-  const onFinish = (Finished) => {
-    if (Finished) {
-      setIsAnswered(true);
-    }
+  const onFinish = () => {
+    setIsAnswered(true);
   };
 
-  console.log("position در App:", JSON.stringify(position));
-
   return (
-    <div className="App">
+    <div className="app">
       {isAnswered ? (
         <div>
           <h1 className="title">نمودار جایگاه سیاسی شما</h1>
@@ -31,5 +27,9 @@ function App() {
     </div>
   );
 }
-
 export default App;
+
+/*
+
+
+*/

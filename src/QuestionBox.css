@@ -67,3 +67,11 @@
   font-size: 2rem;
   font-weight: 700;
 }
+#backBtn {
+  padding: 5px 20px;
+  margin: 0 10px;
+}
+
+#finishBtn {
+  padding: 5px 30px;
+}

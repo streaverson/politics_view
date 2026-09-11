@@ -7,24 +7,34 @@ export default function QuestionBox({ updatePosition, onFinish }) {
   const currentQuestionIndex = answers.length;
   const isFinished = currentQuestionIndex === questions.length;
   // ------------
+
   useEffect(() => {
-    const econStartIndex = questions.findIndex(
-      (question) => question.tag === "econ",
-    );
-    const socialStartIndex = questions.findIndex(
-      (question) => question.tag === "social",
-    );
-    const xQuestions = answers.slice(econStartIndex, socialStartIndex);
-    const yQuestions = answers.slice(socialStartIndex, questions.length - 1);
+    // جدا کردن جواب‌های econ و social
+    const econAnswers = [];
+    const socialAnswers = [];
 
-    const sumX = xQuestions.reduce((acc, ans) => acc + ans, 0);
-    const sumY = yQuestions.reduce((acc, ans) => acc + ans, 0);
+    questions.forEach((question, index) => {
+      if (index >= answers.length) return;
+      if (question.tag === "econ") econAnswers.push(answers[index]);
+      else if (question.tag === "social") socialAnswers.push(answers[index]);
+    });
 
-    console.log(sumX, sumY);
-    // console.log(sumX, sumY);
-    updatePosition({ x: sumX, y: sumY });
+    // میانگین هر محور (بین -1 و +1)
+    const avgX =
+      econAnswers.length > 0
+        ? econAnswers.reduce((a, b) => a + b, 0) / econAnswers.length
+        : 0;
+    const avgY =
+      socialAnswers.length > 0
+        ? socialAnswers.reduce((a, b) => a + b, 0) / socialAnswers.length
+        : 0;
+
+    // نرمالایز به بازه [-10, +10]
+    const normalizedX = avgX * 10;
+    const normalizedY = avgY * 10;
+
+    updatePosition({ x: normalizedX, y: normalizedY });
   }, [answers, updatePosition]);
-
   const handleBack = () => {
     if (answers.length > 0) {
       setAnswers((prev) => prev.slice(0, -1));
@@ -32,18 +42,19 @@ export default function QuestionBox({ updatePosition, onFinish }) {
   };
   // ------------
 
-  useEffect(() => {
-    if (isFinished) {
-      const timer = setTimeout(() => {
-        onFinish(true);
-      }, 1200);
-      return () => clearTimeout(timer);
-    }
-  }, [isFinished, onFinish]);
+  // useEffect(() => {
+  //   if (isFinished) {
+  //     onFinish(true);
+  //     // const timer = setTimeout(() => {
+  //     // }, 1200);
+  //     // return () => clearTimeout(timer);
+  //   }
+  // }, [isFinished, onFinish]);
 
   const handleClick = (score) => {
     if (answers.length < questions.length) {
-      setAnswers((prev) => [...prev, score]);
+      const direction = questions[currentQuestionIndex].direction;
+      setAnswers((prev) => [...prev, score * direction]);
     }
   };
 
@@ -53,28 +64,30 @@ export default function QuestionBox({ updatePosition, onFinish }) {
 
   return (
     <>
-      {isFinished ? (
-        <div className="finishMessage">درحال آماده‌سازی نتیجه...</div>
-      ) : (
-        <div id="questionBox">
-          <h2 id="title">تست دیدگاه سیاسی</h2>
-          <div id="progress">
-            <div id="progressBar">
-              <div
-                style={{
-                  width: `${progressPercent}%`,
-                  transition: "width 0.3s ease",
-                }}
-              ></div>
-            </div>
-            <div id="questionCount">
-              {isFinished
-                ? "تست تمام شد!"
-                : `سوال ${currentQuestionIndex} از ${questions.length} سوال`}
-            </div>
+      <div id="questionBox">
+        <h2 id="title">تست دیدگاه سیاسی</h2>
+        <div id="progress">
+          <div id="progressBar">
+            <div
+              style={{
+                width: `${progressPercent}%`,
+                transition: "width 0.3s ease",
+              }}
+            ></div>
           </div>
+          <div id="questionCount">
+            {isFinished
+              ? "تست تمام شد!"
+              : `سوال ${currentQuestionIndex} از ${questions.length} سوال`}
+          </div>
+        </div>
 
-          <div id="question">{questions[currentQuestionIndex]?.question}</div>
+        <div id="question">{questions[currentQuestionIndex]?.question}</div>
+        {isFinished ? (
+          <button id="finishBtn" onClick={() => onFinish(true)}>
+            اتمام
+          </button>
+        ) : (
           <div id="optionsSection">
             <button onClick={() => handleClick(1)}>خیلی موافق</button>
             <button onClick={() => handleClick(0.5)}>موافق</button>
@@ -82,15 +95,15 @@ export default function QuestionBox({ updatePosition, onFinish }) {
             <button onClick={() => handleClick(-0.5)}>مخالف</button>
             <button onClick={() => handleClick(-1)}>خیلی مخالف</button>
           </div>
-          <button
-            id="backButton"
-            onClick={handleBack}
-            disabled={answers.length === 0} // ← توی سوال اول غیرفعال
-          >
-            ← بازگشت
-          </button>
-        </div>
-      )}
+        )}
+        <button
+          id="backBtn"
+          onClick={handleBack}
+          disabled={answers.length === 0} // ← توی سوال اول غیرفعال
+        >
+          ← بازگشت
+        </button>
+      </div>
     </>
   );
 }
