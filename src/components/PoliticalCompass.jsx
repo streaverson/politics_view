@@ -51,7 +51,7 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
           preserveAspectRatio="xMidYMid meet" // ← اضافه کن
           role="img"
           aria-label="نمودار سیاسی"
-          style={{ overflow: "visible" }}
+          style={{ overflow: "visible", color: "#000" }}
         >
           {/* خطوط شبکه */}
           {gridValues.map((value) => (
