@@ -13,6 +13,8 @@
 }
 
 body {
+  background-color: #fff;
+
   margin: 0;
   font-family: "vazir", sans-serif;
 }
@@ -113,6 +115,9 @@ h2 {
 }
 p {
   margin: 0;
+}
+.app {
+  background-color: #fff;
 }
 
 .title {
