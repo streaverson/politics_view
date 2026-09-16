@@ -1,15 +1,27 @@
 @font-face {
-  font-family: "vazir";
-  src:
-    url("../public/fonts/Vazir.ttf") format ("truetype"),
-    url("../public/fonts/Vazir.woff"),
-    url("../public/fonts/Vazir.woff2");
-  font-weight: normal;
+  font-family: "Vazir";
+  src: url("/fonts/Vazir-Regular.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
 }
 
-* {
-  font-family: "vazir", sans-serif !important;
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Vazir";
+  src: url("/fonts/Vazir-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+html,
+body {
+  font-family: "Vazir", sans-serif;
 }
 
 body {
@@ -19,20 +31,54 @@ body {
   font-family: "vazir", sans-serif;
 }
 
-:root {
-  --main: #212529;
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+/*
+--ink	
+#23291f	متن اصلی، عنوان‌ها، محورهای مرکزی نمودار
+--muted	
+#706c5c	متن‌های ثانویه (توضیحات، برچسب‌ها، شمارنده‌ها)
+--paper	
+#ece7d8	پس‌زمینه‌ی کل صفحه
+--line	
+#d6cfb7	حاشیه‌ی کارت‌ها، خط‌چین بالا، خطوط شبکه‌ی نمودار
+--card	
+#f8f6ee	پس‌زمینه‌ی کارت‌ها و مودال (سفیدِ گرم)
+--accent	
+#8c3b34	دکمه‌ی شروع، انتخاب گزینه‌ها، نشانگر نتیجه (قرمز مهری)
+--accent-soft	
+#ecdad4	تعریف شده ولی الان جایی مصرف نمی‌شه (نسخه‌ی کم‌رنگ‌تر accent، برای هاور یا پس‌زمینه‌های ملایم آماده‌ست)
+--progress	
+#4f7a52	نوار پیشرفت (سبز)
+بدون متغیر	
+#3c4148	متن پاراگراف توضیح (pq-lead) — یه‌کم تیره‌تر از muted
+بدون متغیر	
+#742f29	حالت هاور دکمه‌ی شروع (تیره‌تر از accent)
+بدون متغیر	
+#c4c8cd	حالت غیرفعال دکمه‌ی «بازگشت»
+بدون متغیر	rgba(35, 41, 31, 0.55)	پس‌زمینه‌ی تیره‌ی پشت مودال (بر پایه‌ی ink)
 
+نکته: سه تا رنگ آخر (
+#3c4148, 
+#742f29, 
+#c4c8cd) به متغیر تبدیل نشدن و مستقیم توی CSS نوشته شدن. اگه بخوای بعداً پالت رو عوض کنی، بهتره این‌ها رو هم به متغیرهای CSS تبدیل کنم تا همه‌جا یک‌جا مدیریت بشه — بگو اگه بخوای این کارو بکنم.
+
+*/
+
+:root {
+  /* ___________________________________- */
+
+  --ink: #23291f;
+  --muted: #706c5c;
+  --paper: #ece7d8;
+  --line: #d6cfb7;
+  --card: #f8f6ee;
+  --accent: #8c3b34;
+  --accent-soft: #ecdad4;
+  --progress: #4f7a52;
+  --res-description: #3c4148;
+  --startBtn-hover: #742f29;
+  --backBtn-disabled: #c4c8cd;
+  --modal-bg: rgba(35, 41, 31, 0.55);
+  /* ___________________________________- */
   --sans: system-ui, "Segoe UI", Roboto, sans-serif;
   --heading: system-ui, "Segoe UI", Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -52,28 +98,8 @@ body {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
 body {
-  margin: 0;
+  background-color: var(--paper);
 }
 
 #root {
@@ -88,36 +114,269 @@ body {
   /* box-sizing: border-box;   */
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+:root {
+  /* ___________________________________- */
+
+  --ink: #23291f;
+  --muted: #706c5c;
+  --paper: #ece7d8;
+  --line: #d6cfb7;
+  --card: #f8f6ee;
+  --accent: #8c3b34;
+  --accent-soft: ##ecdad4;
+  --progress: #4f7a52;
+  --res-description: #3c4148;
+  --startBtn-hover: #742f29;
+  --backBtn-disabled: #c4c8cd;
+  --modal-bg: rgba(35, 41, 31, 0.55);
+  /* ___________________________________- */
+  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
+  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Consolas, monospace;
+}
+#container {
+  min-height: 100%;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+  color: var(--ink);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+.card {
+  width: 100%;
+  max-width: 560px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 40px 36px !important;
+  box-sizing: border-box;
+  position: relative;
 }
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 32px;
+  left: 32px;
+  height: 2px;
+  background-image: repeating-linear-gradient(
+    to left,
+    var(--line) 0,
+    var(--line) 6px,
+    transparent 6px,
+    transparent 12px
+  );
 }
-p {
-  margin: 0;
+
+.beforeStart {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  margin: 0 0 10px 0;
 }
-.app {
-  background-color: #fff;
+
+.cardTitle {
+  font-size: 28px;
+  line-height: 1.4;
+  margin: 0 0 16px 0 !important;
+  font-weight: 700;
+}
+
+#cardDescription {
+  margin: 0 0 24px 0;
+  line-height: 1.9;
+  color: #3c4148;
+  max-width: 46ch;
+  font-size: 15px;
+}
+
+#testInfo {
+  display: flex;
+  font-size: 13.5px;
+  align-items: center;
+  color: var(--muted);
+  margin-bottom: 32px;
+  gap: 10px;
+  font-weight: 500;
+}
+
+.dot {
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  background-color: var(--muted);
+  display: inline;
+}
+
+#startBtn {
+  padding: 13px 28px;
+  background-color: var(--accent);
+  color: var(--card);
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
+}
+
+#title {
+  margin: 0 1rem 1rem;
+
+  padding: 0 0 10px 0;
+  /* color: var(--main) !important; */
+  /* border-bottom: 1px solid #212529; */
+}
+#progress {
+  gap: 10px;
+  width: 100%;
+  display: flex;
+  margin: 0 0 28px 0;
+  align-items: center;
+}
+#progressBar {
+  height: 10px;
+  width: 100%;
+  background-color: var(--line);
+  border-radius: 50px;
+
+  overflow: hidden;
+}
+#progressBar div {
+  height: 100%;
+  background-color: var(--progress);
+  border-radius: inherit;
+  transition: width 0.5s ease-in-out;
+}
+
+#progress span {
+  color: var(--muted);
+  width: 65px;
+}
+#progress #questionCount {
+  color: #666 !important;
+  text-align: center;
+}
+
+#mainWrap {
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+}
+
+#question {
+  transition:
+    transform 220ms ease,
+    opacity 220ms ease;
+  transform: translateX(0);
+  opacity: 1;
+}
+/* baraye animation leaving */
+#question.leaving {
+  transform: translateX(-30px);
+  opacity: 0;
+}
+
+#question.entering {
+  transform: translateX(30px);
+  opacity: 0;
+  transition: none;
+}
+
+#questionText {
+  font-size: 19px;
+  line-height: 1.8;
+  font-weight: 600;
+  margin: 6px 0 32px;
+}
+#questionOptions {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.options {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 2px;
+  font-family: inherit;
+}
+
+.options .label {
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.4;
+}
+.options .optionCheckBox {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 2px solid var(--line);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.checkmark-icon {
+  margin: 3px 0;
+}
+
+/* ______________ active __________________ */
+
+.active {
+  background-color: var(--accent);
+  color: var(--card);
+}
+
+/* __________________________ */
+
+.cardFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+#answerCount {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+#backBtn {
+  background: none;
+  border: none;
+  font-weight: 500;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 6px 4px;
+}
+
+.finishMessage {
+  margin: 200px auto;
+  font-size: 2rem;
+  font-weight: 700;
+}
+#finishBtn {
+  padding: 5px 30px;
 }
 
 .title {
@@ -129,14 +388,13 @@ p {
   font-size: 2rem;
 }
 .political-compass-wrapper {
-  width: min(100%, 300px);
+  /* width: min(100%, 300px); */
+  padding: 40px !important;
+  width: 100%;
   aspect-ratio: 1 / 1;
   background-color: #fff;
   margin: auto;
-  direction: ltr;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  direction: rtl;
 }
 
 .political-compass {
@@ -162,4 +420,147 @@ p {
   unicode-bidi: plaintext;
   user-select: none;
   pointer-events: none;
+}
+
+/* ______________________ result page */
+
+/* .circle:hover {
+  transition: all 0.3s;
+  transform: translateY(-1px);
+  cursor: pointer;
+} */
+
+.modal {
+  width: 100%;
+  position: absolute;
+  left: auto;
+  top: auto;
+  z-index: 999;
+  max-width: 420px;
+  background: var(--card);
+  border-radius: 6px;
+  padding: 32px 28px;
+  box-sizing: border-box;
+  animation: pq-modal-in 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.continueBtn {
+  border: none;
+  background: var(--accent);
+  color: var(--card);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 28px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
+}
+
+.continueBtn:hover {
+  background-color: #742f29;
+}
+.startAgainBtn {
+  border: none;
+  background: var(--card);
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 13px 28px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.startAgainBtn:hover {
+  color: var(--ink);
+}
+/* ______________________ result page */
+
+.gridLines {
+  fill: var(--line);
+  stroke: var(--line);
+}
+
+.mainCircle {
+  fill: var(--progress);
+  z-index: 1000;
+
+  stroke: var(--progress);
+}
+.circle {
+  z-index: 100;
+
+  position: relative;
+  transition: all 0.2s;
+}
+
+/* .circle:hover {
+  transition: all 0.3s;
+  transform: translateY(-1px);
+  cursor: pointer;
+} */
+
+.characters {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+
+.figureMarker {
+  cursor: pointer;
+}
+
+.figureMarker circle {
+  transition:
+    r 150ms ease,
+    transform 150ms ease;
+}
+
+.figureMarker:hover circle.circle {
+  transform: scale(1.15);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.userGlow {
+  fill: var(--progress);
+  opacity: 0.18;
+}
+
+.infoBoxWrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease,
+    visibility 150ms;
+  pointer-events: none;
+}
+
+.figureMarker:hover .infoBoxWrap {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.infoBox {
+  position: relative;
+  padding: 4px 10px;
+  background-color: var(--ink);
+  color: var(--card);
+  font-family: "Vazir", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }

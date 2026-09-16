@@ -1,5 +1,6 @@
 import React from "react";
-
+import FigureMarker from "./FigureMarker";
+import { ZIndexLayer } from "recharts";
 // TEST GIT TEST TEST
 const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
   const VIEWBOX_SIZE = 500;
@@ -44,32 +45,45 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
   console.log("cy:", getValidCy(safeUserPosition.y));
   return (
     <>
-      <div className="political-compass-wrapper">
+      <div className="political-compass-wrapper card">
+        <p className="beforeStart">نتیجه</p>
+        <h2 className="cardTitle" style={{ fontSize: "18px" }}>
+          {`متمایل به ${getValidCx(safeUserPosition.x) > 280 ? "راست" : getValidCx(safeUserPosition.x) < 220 ? "چپ" : "میانه"}`}
+          ، با گرایش{" "}
+          {getValidCy(safeUserPosition.y) > 280
+            ? "ازادی خواهانه"
+            : getValidCy(safeUserPosition.y) < 220
+              ? "اقتدارگرایانه"
+              : "میانه رو"}
+        </h2>
+
         <svg
           className="political-compass"
           viewBox={`0 0 ${VIEWBOX_SIZE} ${VIEWBOX_SIZE}`}
-          preserveAspectRatio="xMidYMid meet" // ← اضافه کن
+          // preserveAspectRatio="xMidYMid meet" // ← اضافه کن
           role="img"
           aria-label="نمودار سیاسی"
-          style={{ overflow: "visible", color: "#000" }}
+          style={{ marginTop: "32px", overflow: "visible", color: "#000" }}
         >
           {/* خطوط شبکه */}
           {gridValues.map((value) => (
             <React.Fragment key={value}>
               <line
+                className="gridLines"
                 x1="0"
                 y1={getY(value)}
                 x2={VIEWBOX_SIZE}
                 y2={getY(value)}
-                stroke="#ff8080"
+                // stroke="#ff8080"
                 strokeWidth="1"
               />
               <line
+                className="gridLines"
                 x1={getX(value)}
                 y1="0"
                 x2={getX(value)}
                 y2={VIEWBOX_SIZE}
-                stroke="#ff8080"
+                // stroke="#ff8080"
                 strokeWidth="1"
               />
             </React.Fragment>
@@ -139,19 +153,23 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
             راست
           </text>
 
-          {/* نقطه کاربر — ✅ بدون + 250 */}
-          <circle
+          {/* ----------- */}
+          <FigureMarker cx={52} cy={40} label="استالین" />
+          <FigureMarker cx={360} cy={60} label="هیتلر" />
+          <FigureMarker cx={110} cy={380} label="مهاتما گاندی" />
+          <FigureMarker cx={450} cy={316} label=" فریدمن" />
+          {/* khodemoon */}
+          <FigureMarker
             cx={getValidCx(safeUserPosition.x)}
             cy={getValidCy(safeUserPosition.y)}
-            r="7"
-            fill="#2e7d32"
-            stroke="#1b5e20"
-            strokeWidth="2"
+            label="شما"
+            isUser
           />
+          {/* __________________ */}
         </svg>
       </div>
 
-      <footer
+      {/* <footer
         style={{
           position: "fixed",
           bottom: 0,
@@ -166,9 +184,82 @@ const PoliticalCompass = ({ userPosition = { x: 0, y: 0 } }) => {
         <a href="https://github.com/streaverson" style={{ color: "#000" }}>
           streaverson
         </a>
-      </footer>
+      </footer> */}
     </>
   );
 };
 
 export default PoliticalCompass;
+// <g className="circleContainer">
+//   <circle
+//     className="mainCircle circle"
+//     cx={getValidCx(safeUserPosition.x)}
+//     cy={getValidCy(safeUserPosition.y)}
+//     r="7"
+//     // stroke="#1b5e20"
+//     strokeWidth="6"
+//   />
+//   <foreignObject x="30" y="5" width="100" height="40">
+//     <div className="infoBox">شما</div>
+//   </foreignObject>
+// </g>
+// {/* __________ shakhsiat haye mokhatalef baraye moghayese */}
+// <g className="circleContainer">
+//   <circle
+//     className="circle characters"
+//     cx={52}
+//     cy={40}
+//     r="7"
+//     // fill="#2e7d32"
+//     // stroke="#1b5e20"
+//     strokeWidth="6"
+//   />
+//   <foreignObject x={52 - 40} y={40 - 50} width="80" height="40">
+//     <div className="infoBox">استالین</div>
+//   </foreignObject>
+// </g>
+// {/* ____________________ */}
+// <g className="circleContainer">
+//   <circle
+//     className="circle characters"
+//     cx={360}
+//     cy={60}
+//     r="7"
+//     // fill="#2e7d32"
+//     // stroke="#1b5e20"
+//     strokeWidth="6"
+//   />
+//   <foreignObject x={52 - 40} y={40 - 50} width="80" height="40">
+//     <div className="infoBox">هیتلر</div>
+//   </foreignObject>
+// </g>
+// {/* _____________________- */}
+// <g className="circleContainer">
+//   <circle
+//     className="circle characters"
+//     cx={110}
+//     cy={380}
+//     r="7"
+//     // fill="#2e7d32"
+//     // stroke="#1b5e20"
+//     strokeWidth="6"
+//   />
+//   <foreignObject x={500 - 180} y={40 - 37} width="80" height="40">
+//     <div className="infoBox">هیتلر</div>
+//   </foreignObject>
+// </g>
+// {/* __________________} */}
+// <g className="circleContainer">
+//   <circle
+//     className="circle characters"
+//     cx={450}
+//     cy={316}
+//     r="7"
+//     // fill="#2e7d32"
+//     // stroke="#1b5e20"
+//     strokeWidth="6"
+//   />
+//   <foreignObject x={52 - 20} y={40 - 50} width="80" height="40">
+//     <div className="infoBox">استالین</div>
+//   </foreignObject>
+// </g>
