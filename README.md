@@ -46,7 +46,7 @@
 
 <div dir="rtl">
 خوشحال می‌شوم اگر پیشنهادی دارید یا می‌خواهید با من در ارتباط باشید:
-<br/>instagram : amir_streaver_dev <br/>
+<br/>instagram : https://www.instagram.com/amir_streaver_dev/ <br/>
 <br/>Email: amirmahdi.valadkhani@gmail.com <br/>
 <br/>LinkedIn: https://www.linkedin.com/in/amir-valadkhani-00179b268 <br/>
 <br/>GitHub: https://github.com/streaverson
